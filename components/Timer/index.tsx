@@ -16,7 +16,7 @@ import {
 } from "./styles";
 
 export default function Timer() {
-  const [timer, setTimer] = useState(1 * 60); // 25 minutes
+  const [timer, setTimer] = useState(25 * 60); // 25 minutes
   const [isRunning, setIsRunning] = useState(false);
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
 

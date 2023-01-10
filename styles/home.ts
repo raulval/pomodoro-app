@@ -9,7 +9,7 @@ export const Container = styled.div`
   width: 100vw;
   background-color: ${(props) => props.theme.colors.background};
 
-  gap: 5rem;
+  gap: 4rem;
 `;
 
 export const Title = styled.h1`

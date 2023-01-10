@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { ThemeProvider } from "styled-components";
 import Switches from "../components/Switches";
+import Timer from "../components/Timer";
 import { GlobalStyle } from "../styles/global";
 import { Container, Title } from "../styles/home";
 import Theme from "../styles/theme";
@@ -19,6 +20,7 @@ export default function Home() {
         <Container>
           <Title>pomodoro</Title>
           <Switches onClick={(props) => setSelectedSwitch(props)} />
+          <Timer />
         </Container>
       </ThemeProvider>
     </>

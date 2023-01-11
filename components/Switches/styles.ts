@@ -35,4 +35,5 @@ export const PomodoroSwitch = styled.button`
   background: ${(props: SwitchesStyleProps) =>
     props.active ? props.theme.themes.color1 : "none"};
   font-weight: 600;
+  transition: background 0.2s ease-in-out 0s, color 0.2s ease-in-out 0s;
 `;

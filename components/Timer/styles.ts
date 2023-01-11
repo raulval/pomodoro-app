@@ -1,4 +1,10 @@
-import styled from "styled-components";
+import styled, { DefaultTheme } from "styled-components";
+
+interface TimerStylesProps {
+  timer: number;
+  selectedTime: number;
+  theme: DefaultTheme;
+}
 
 export const Container = styled.div`
   display: flex;
@@ -61,8 +67,9 @@ export const Path2 = styled.path`
   stroke: ${(props) => props.theme.themes.color1};
   stroke-linecap: round;
   stroke-width: 13.5;
-  stroke-dasharray: 1050;
-  stroke-dashoffset: 0;
+  stroke-dasharray: 1032;
+  stroke-dashoffset: ${(props: TimerStylesProps) =>
+    1032 - (props.timer / props.selectedTime) * 1032};
 `;
 
 export const TimerRing = styled.div`
@@ -78,8 +85,6 @@ export const TimerRing = styled.div`
 `;
 
 export const TimerDiv = styled.div`
-  /* margin-top: 2.375rem;
-  width: 100%; */
   overflow: hidden;
 `;
 

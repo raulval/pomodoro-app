@@ -16,7 +16,8 @@ import {
 } from "./styles";
 
 export default function Timer() {
-  const [timer, setTimer] = useState(25 * 60); // 25 minutes
+  const selectedTime = 25 * 60;
+  const [timer, setTimer] = useState(selectedTime); // 25 minutes
   const [isRunning, setIsRunning] = useState(false);
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
 
@@ -46,7 +47,7 @@ export default function Timer() {
     clearInterval(intervalId!);
     setIntervalId(null);
     setIsRunning(false);
-    setTimer(25 * 60);
+    setTimer(selectedTime);
   };
 
   const minutes = Math.floor(timer / 60);
@@ -68,6 +69,8 @@ export default function Timer() {
                 d="m 171,6.75
           a 164.25,164.25 0 1,0 0,328.5
           a 164.25,164.25 0 1,0 0,-328.5"
+                timer={timer}
+                selectedTime={selectedTime}
               ></Path2>
             </Svg>
             <TimerRing>
@@ -96,7 +99,7 @@ export default function Timer() {
                           <TimerStartButton onClick={handleStart}>
                             Start
                           </TimerStartButton>
-                          {timer < 25 * 60 && (
+                          {timer < selectedTime && (
                             <TimerResetButton onClick={handleReset}>
                               Reset
                             </TimerResetButton>

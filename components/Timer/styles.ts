@@ -70,6 +70,7 @@ export const Path2 = styled.path`
   stroke-dasharray: 1032;
   stroke-dashoffset: ${(props: TimerStylesProps) =>
     1032 - (props.timer / props.selectedTime) * 1032};
+  transition: stroke-dashoffset 0.5s ease-in-out;
 `;
 
 export const TimerRing = styled.div`

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Container,
   CountdownTimer,
@@ -15,11 +15,18 @@ import {
   Wrapper2,
 } from "./styles";
 
-export default function Timer() {
-  const selectedTime = 25 * 60;
+interface TimerProps {
+  selectedTime: number;
+}
+
+export default function Timer({ selectedTime }: TimerProps) {
   const [timer, setTimer] = useState(selectedTime); // 25 minutes
   const [isRunning, setIsRunning] = useState(false);
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    setTimer(selectedTime);
+  }, [selectedTime]);
 
   const handleStart = () => {
     setIsRunning(true);

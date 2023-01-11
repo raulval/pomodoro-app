@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { ThemeProvider } from "styled-components";
+import Settings from "../components/Settings";
 import Switches from "../components/Switches";
 import Timer from "../components/Timer";
 import { GlobalStyle } from "../styles/global";
@@ -32,6 +33,7 @@ export default function Home() {
           <Title>pomodoro</Title>
           <Switches onClick={(props) => setSelectedSwitch(props)} />
           <Timer selectedTime={selectedTime} />
+          <Settings />
         </Container>
       </ThemeProvider>
     </>

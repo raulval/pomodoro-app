@@ -51,16 +51,24 @@ const SettingsModal = ({ closeModal }: SettingsModalProps) => {
     };
     document.addEventListener("mousedown", handleClickOutside, true);
 
-    // if (selectedPreset === "default") {
-    //   setPomodoroTime(25);
-    //   setShortBreakTime(5);
-    //   setLongBreakTime(15);
-    // }
+    if (selectedPreset === "default") {
+      setPomodoroTime(25);
+      setShortBreakTime(5);
+      setLongBreakTime(15);
+    } else if (selectedPreset === "dev") {
+      setPomodoroTime(60);
+      setShortBreakTime(5);
+      setLongBreakTime(20);
+    } else if (selectedPreset === "lazy") {
+      setPomodoroTime(15);
+      setShortBreakTime(5);
+      setLongBreakTime(30);
+    }
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [modalRef, closeModal]);
+  }, [modalRef, closeModal, selectedPreset]);
 
   const handlePreset = (preset: string) => {
     setSelectedPreset(preset);

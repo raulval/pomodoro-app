@@ -1,26 +1,29 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { ThemeProvider } from "styled-components";
 import Settings from "../components/Settings";
 import Switches from "../components/Switches";
 import Timer from "../components/Timer";
+import { selectTimerValues } from "../redux/reducers/timerValues";
 import { GlobalStyle } from "../styles/global";
 import { Container, Title } from "../styles/home";
 import Theme from "../styles/theme";
 
 export default function Home() {
   const [selectedSwitch, setSelectedSwitch] = useState("pomodoro");
-  const [selectedTime, setSelectedTime] = useState(25 * 60);
+  const [selectedTime, setSelectedTime] = useState<number>(25 * 60);
+  const { pomodoro, shortBreak, longBreak } = useSelector(selectTimerValues);
 
   useEffect(() => {
     if (selectedSwitch === "pomodoro") {
-      setSelectedTime(25 * 60);
+      setSelectedTime(pomodoro * 60);
     } else if (selectedSwitch === "short break") {
-      setSelectedTime(5 * 60);
+      setSelectedTime(shortBreak * 60);
     } else if (selectedSwitch === "long break") {
-      setSelectedTime(15 * 60);
+      setSelectedTime(longBreak * 60);
     }
-  }, [selectedSwitch]);
+  }, [selectedSwitch, pomodoro, shortBreak, longBreak]);
 
   return (
     <>

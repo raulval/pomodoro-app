@@ -1,4 +1,11 @@
 import { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import {
+  setLongBreakTimer,
+  setPomodoroTimer,
+  setShortBreakTimer,
+} from "../../redux/reducers/timerValues";
+
 import {
   CloseIcon,
   Modal,
@@ -25,9 +32,13 @@ interface SettingsModalProps {
 }
 
 const SettingsModal = ({ closeModal }: SettingsModalProps) => {
+  const dispatch = useDispatch();
   const modalRef = useRef<HTMLDivElement>(null);
   const presets = ["default", "dev", "lazy"];
   const [selectedPreset, setSelectedPreset] = useState(presets[0]);
+  const [pomodoroTime, setPomodoroTime] = useState<number>(25);
+  const [shortBreakTime, setShortBreakTime] = useState<number>(5);
+  const [longBreakTime, setLongBreakTime] = useState<number>(15);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -39,6 +50,13 @@ const SettingsModal = ({ closeModal }: SettingsModalProps) => {
       }
     };
     document.addEventListener("mousedown", handleClickOutside, true);
+
+    // if (selectedPreset === "default") {
+    //   setPomodoroTime(25);
+    //   setShortBreakTime(5);
+    //   setLongBreakTime(15);
+    // }
+
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -48,8 +66,22 @@ const SettingsModal = ({ closeModal }: SettingsModalProps) => {
     setSelectedPreset(preset);
   };
 
-  const handleApply = () => {
-    closeModal();
+  const handleApply = async () => {
+    if (
+      Number.isNaN(pomodoroTime) ||
+      pomodoroTime === 0 ||
+      Number.isNaN(shortBreakTime) ||
+      shortBreakTime === 0 ||
+      Number.isNaN(longBreakTime) ||
+      longBreakTime === 0
+    ) {
+      return;
+    } else {
+      dispatch(setPomodoroTimer(pomodoroTime));
+      dispatch(setShortBreakTimer(shortBreakTime));
+      dispatch(setLongBreakTimer(longBreakTime));
+      closeModal();
+    }
   };
 
   return (
@@ -66,15 +98,33 @@ const SettingsModal = ({ closeModal }: SettingsModalProps) => {
             <ModalTimeInputsWrapper>
               <ModalTimeInputs>
                 <ModalTimeInputLabel>pomodoro</ModalTimeInputLabel>
-                <ModalTimeInput type="number" />
+                <ModalTimeInput
+                  type="number"
+                  pattern="[0-9]{1,3}"
+                  value={pomodoroTime}
+                  onChange={(e) => setPomodoroTime(e.target.valueAsNumber)}
+                  required
+                />
               </ModalTimeInputs>
               <ModalTimeInputs>
                 <ModalTimeInputLabel>short break</ModalTimeInputLabel>
-                <ModalTimeInput type="number" />
+                <ModalTimeInput
+                  type="number"
+                  pattern="[0-9]{1,3}"
+                  value={shortBreakTime}
+                  onChange={(e) => setShortBreakTime(e.target.valueAsNumber)}
+                  required
+                />
               </ModalTimeInputs>
               <ModalTimeInputs>
                 <ModalTimeInputLabel>long break</ModalTimeInputLabel>
-                <ModalTimeInput type="number" />
+                <ModalTimeInput
+                  type="number"
+                  pattern="[0-9]{1,3}"
+                  value={longBreakTime}
+                  onChange={(e) => setLongBreakTime(e.target.valueAsNumber)}
+                  required
+                />
               </ModalTimeInputs>
             </ModalTimeInputsWrapper>
           </ModalTime>

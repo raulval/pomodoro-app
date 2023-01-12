@@ -77,11 +77,11 @@ const SettingsModal = ({ closeModal }: SettingsModalProps) => {
   const handleApply = async () => {
     if (
       Number.isNaN(pomodoroTime) ||
-      pomodoroTime === 0 ||
+      pomodoroTime <= 0 ||
       Number.isNaN(shortBreakTime) ||
-      shortBreakTime === 0 ||
+      shortBreakTime <= 0 ||
       Number.isNaN(longBreakTime) ||
-      longBreakTime === 0
+      longBreakTime <= 0
     ) {
       return;
     } else {

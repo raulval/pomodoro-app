@@ -4,6 +4,7 @@ interface TimerStylesProps {
   timer: number;
   selectedTime: number;
   theme: DefaultTheme;
+  color: string;
 }
 
 export const Container = styled.div`
@@ -64,7 +65,12 @@ export const Path1 = styled.path`
 
 export const Path2 = styled.path`
   fill: none;
-  stroke: ${(props) => props.theme.themes.color1};
+  stroke: ${(props) =>
+    props.color === "color1"
+      ? props.theme.themes.color1
+      : props.color === "color2"
+      ? props.theme.themes.color2
+      : props.theme.themes.color3};
   stroke-linecap: round;
   stroke-width: 13.5;
   stroke-dasharray: 1032;
@@ -82,7 +88,12 @@ export const TimerRing = styled.div`
   top: 0px;
   width: 100%;
   height: 100%;
-  color: ${(props) => props.theme.themes.color1};
+  color: ${(props) =>
+    props.color === "color1"
+      ? props.theme.themes.color1
+      : props.color === "color2"
+      ? props.theme.themes.color2
+      : props.theme.themes.color3};
 `;
 
 export const TimerDiv = styled.div`
@@ -117,7 +128,12 @@ export const TimerStartButton = styled.button`
   transition: color 0.2s ease 0s;
 
   &:hover {
-    color: ${(props) => props.theme.themes.color1};
+    color: ${(props) =>
+      props.color === "color1"
+        ? props.theme.themes.color1
+        : props.color === "color2"
+        ? props.theme.themes.color2
+        : props.theme.themes.color3};
   }
 `;
 
@@ -137,6 +153,11 @@ export const TimerResetButton = styled.button`
   transition: color 0.2s ease 0s;
 
   &:hover {
-    color: ${(props) => props.theme.themes.color1};
+    color: ${(props) =>
+      props.color === "color1"
+        ? props.theme.themes.color1
+        : props.color === "color2"
+        ? props.theme.themes.color2
+        : props.theme.themes.color3};
   }
 `;

@@ -7,8 +7,10 @@ import {
   setShortBreakTimer,
 } from "../../redux/reducers/timerValues";
 import { colors, presets } from "../../shared/data";
+import { getLocalStorage } from "../../shared/utils/getLocalStorage";
 import Theme from "../../styles/theme";
 
+import { userSettings } from "../../shared/interfaces";
 import {
   CloseIcon,
   Modal,
@@ -40,12 +42,21 @@ interface SettingsModalProps {
 const SettingsModal = ({ closeModal }: SettingsModalProps) => {
   const dispatch = useDispatch();
   const { color } = useSelector(selectColors);
+  const userSettings: userSettings = getLocalStorage("settings");
   const modalRef = useRef<HTMLDivElement>(null);
-  const [selectedPreset, setSelectedPreset] = useState(presets[0]);
-  const [selectedColor, setSelectedColor] = useState(colors[0]);
-  const [pomodoroTime, setPomodoroTime] = useState<number>(25);
-  const [shortBreakTime, setShortBreakTime] = useState<number>(5);
-  const [longBreakTime, setLongBreakTime] = useState<number>(15);
+  const [selectedPreset, setSelectedPreset] = useState<string>();
+  const [selectedColor, setSelectedColor] = useState(
+    userSettings ? userSettings.color : colors[0]
+  );
+  const [pomodoroTime, setPomodoroTime] = useState<number>(
+    userSettings ? userSettings.pomodoroTimer : 25
+  );
+  const [shortBreakTime, setShortBreakTime] = useState<number>(
+    userSettings ? userSettings.shortBreakTimer : 5
+  );
+  const [longBreakTime, setLongBreakTime] = useState<number>(
+    userSettings ? userSettings.longBreakTimer : 15
+  );
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -92,6 +103,15 @@ const SettingsModal = ({ closeModal }: SettingsModalProps) => {
       dispatch(setShortBreakTimer(shortBreakTime));
       dispatch(setLongBreakTimer(longBreakTime));
       dispatch(setColor(selectedColor));
+      localStorage.setItem(
+        "settings",
+        JSON.stringify({
+          pomodoroTimer: pomodoroTime,
+          shortBreakTimer: shortBreakTime,
+          longBreakTimer: longBreakTime,
+          color: selectedColor,
+        })
+      );
       closeModal();
     }
   };
@@ -188,7 +208,10 @@ const SettingsModal = ({ closeModal }: SettingsModalProps) => {
             </ModalColorsButtons>
           </ModalColors>
           <ModalApply>
-            <ModalApplyButton onClick={handleApply} color={color}>
+            <ModalApplyButton
+              onClick={handleApply}
+              color={userSettings ? userSettings.color : color}
+            >
               Apply
             </ModalApplyButton>
           </ModalApply>

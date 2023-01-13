@@ -1,10 +1,13 @@
 import { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { selectColors, setColor } from "../../redux/reducers/colors";
 import {
   setLongBreakTimer,
   setPomodoroTimer,
   setShortBreakTimer,
 } from "../../redux/reducers/timerValues";
+import { colors, presets } from "../../shared/data";
+import Theme from "../../styles/theme";
 
 import {
   CloseIcon,
@@ -12,6 +15,9 @@ import {
   ModalApply,
   ModalApplyButton,
   ModalBody,
+  ModalColorButton,
+  ModalColors,
+  ModalColorsButtons,
   ModalContent,
   ModalHeader,
   ModalPresets,
@@ -33,9 +39,10 @@ interface SettingsModalProps {
 
 const SettingsModal = ({ closeModal }: SettingsModalProps) => {
   const dispatch = useDispatch();
+  const { color } = useSelector(selectColors);
   const modalRef = useRef<HTMLDivElement>(null);
-  const presets = ["default", "dev", "lazy"];
   const [selectedPreset, setSelectedPreset] = useState(presets[0]);
+  const [selectedColor, setSelectedColor] = useState(colors[0]);
   const [pomodoroTime, setPomodoroTime] = useState<number>(25);
   const [shortBreakTime, setShortBreakTime] = useState<number>(5);
   const [longBreakTime, setLongBreakTime] = useState<number>(15);
@@ -70,10 +77,6 @@ const SettingsModal = ({ closeModal }: SettingsModalProps) => {
     };
   }, [modalRef, closeModal, selectedPreset]);
 
-  const handlePreset = (preset: string) => {
-    setSelectedPreset(preset);
-  };
-
   const handleApply = async () => {
     if (
       Number.isNaN(pomodoroTime) ||
@@ -88,6 +91,7 @@ const SettingsModal = ({ closeModal }: SettingsModalProps) => {
       dispatch(setPomodoroTimer(pomodoroTime));
       dispatch(setShortBreakTimer(shortBreakTime));
       dispatch(setLongBreakTimer(longBreakTime));
+      dispatch(setColor(selectedColor));
       closeModal();
     }
   };
@@ -147,7 +151,7 @@ const SettingsModal = ({ closeModal }: SettingsModalProps) => {
                 return (
                   <ModalPresetsButton
                     key={presetItem}
-                    onClick={() => handlePreset(presetItem)}
+                    onClick={() => setSelectedPreset(presetItem)}
                     active={isActive}
                   >
                     {presetItem}
@@ -156,8 +160,37 @@ const SettingsModal = ({ closeModal }: SettingsModalProps) => {
               })}
             </ModalPresetsButtons>
           </ModalPresets>
+
+          <ModalSeparator></ModalSeparator>
+
+          <ModalColors>
+            <ModalText>Colors</ModalText>
+            <ModalColorsButtons>
+              {colors.map((color) => {
+                const isActive = selectedColor === color ? true : false;
+                return (
+                  <ModalColorButton
+                    key={color}
+                    onClick={() => setSelectedColor(color)}
+                    active={isActive}
+                    style={{
+                      background: `${
+                        color === "color1"
+                          ? Theme.themes.color1
+                          : color === "color2"
+                          ? Theme.themes.color2
+                          : Theme.themes.color3
+                      }`,
+                    }}
+                  ></ModalColorButton>
+                );
+              })}
+            </ModalColorsButtons>
+          </ModalColors>
           <ModalApply>
-            <ModalApplyButton onClick={handleApply}>Apply</ModalApplyButton>
+            <ModalApplyButton onClick={handleApply} color={color}>
+              Apply
+            </ModalApplyButton>
           </ModalApply>
         </ModalBody>
       </ModalContent>

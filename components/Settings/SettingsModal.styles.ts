@@ -4,9 +4,13 @@ import styled, { DefaultTheme } from "styled-components";
 interface ModalStylesProps {
   active: boolean;
   theme: DefaultTheme;
+  color?: string;
 }
 
 export const Modal = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: fixed;
   z-index: 1;
   left: 0;
@@ -145,6 +149,32 @@ export const ModalPresetsButton = styled.button`
   transition: background-color 0.1s ease-in 0s;
 `;
 
+export const ModalColors = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+`;
+
+export const ModalColorsButtons = styled.div`
+  display: flex;
+  gap: 0.5rem;
+`;
+
+export const ModalColorButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 600;
+  border-radius: 50%;
+  min-width: 60px;
+  min-height: 60px;
+  border: ${(props: ModalStylesProps) =>
+    props.active ? `4px solid ${props.theme.colors.terciary.text}` : "none"};
+  transition: background-color 0.1s ease-in 0s;
+`;
+
 export const ModalApply = styled.div`
   display: flex;
   align-items: center;
@@ -162,7 +192,12 @@ export const ModalApplyButton = styled.button`
   padding-inline: 3rem;
   padding-top: 1rem;
   padding-bottom: 1rem;
-  background: ${(props) => props.theme.themes.color1};
-  color: white;
+  background: ${(props) =>
+    props.color === "color1"
+      ? props.theme.themes.color1
+      : props.color === "color2"
+      ? props.theme.themes.color2
+      : props.theme.themes.color3};
+  color: #eff1fa;
   transition: all 250ms ease 0s;
 `;

@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
+import colors from "./reducers/colors";
 import timerValuesReducer from "./reducers/timerValues";
 
 export const store = configureStore({
   reducer: {
     timerValues: timerValuesReducer,
+    colors: colors,
   },
 });
 

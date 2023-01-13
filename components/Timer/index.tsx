@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectColors } from "../../redux/reducers/colors";
+import { userSettings } from "../../shared/interfaces";
+import { getLocalStorage } from "../../shared/utils/getLocalStorage";
 import {
   Container,
   CountdownTimer,
@@ -23,6 +25,7 @@ interface TimerProps {
 
 export default function Timer({ selectedTime }: TimerProps) {
   const { color } = useSelector(selectColors);
+  const userSettings: userSettings = getLocalStorage("settings");
   const [timer, setTimer] = useState(selectedTime); // 25 minutes
   const [isRunning, setIsRunning] = useState(false);
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
@@ -81,10 +84,10 @@ export default function Timer({ selectedTime }: TimerProps) {
           a 164.25,164.25 0 1,0 0,-328.5"
                 timer={timer}
                 selectedTime={selectedTime}
-                color={color}
+                color={userSettings ? userSettings.color : color}
               ></Path2>
             </Svg>
-            <TimerRing color={color}>
+            <TimerRing color={userSettings ? userSettings.color : color}>
               <TimerDiv>
                 <TimerText>
                   {minutes}:{formattedSeconds}
@@ -92,28 +95,40 @@ export default function Timer({ selectedTime }: TimerProps) {
                 <TimerButtons>
                   {isRunning ? (
                     <>
-                      <TimerStartButton onClick={handlePause} color={color}>
+                      <TimerStartButton
+                        onClick={handlePause}
+                        color={userSettings ? userSettings.color : color}
+                      >
                         Pause
                       </TimerStartButton>
-                      <TimerResetButton onClick={handleReset} color={color}>
+                      <TimerResetButton
+                        onClick={handleReset}
+                        color={userSettings ? userSettings.color : color}
+                      >
                         Reset
                       </TimerResetButton>
                     </>
                   ) : (
                     <>
                       {timer === 0 ? (
-                        <TimerStartButton onClick={handleReset} color={color}>
+                        <TimerStartButton
+                          onClick={handleReset}
+                          color={userSettings ? userSettings.color : color}
+                        >
                           Reset
                         </TimerStartButton>
                       ) : (
                         <>
-                          <TimerStartButton onClick={handleStart} color={color}>
+                          <TimerStartButton
+                            onClick={handleStart}
+                            color={userSettings ? userSettings.color : color}
+                          >
                             Start
                           </TimerStartButton>
                           {timer < selectedTime && (
                             <TimerResetButton
                               onClick={handleReset}
-                              color={color}
+                              color={userSettings ? userSettings.color : color}
                             >
                               Reset
                             </TimerResetButton>

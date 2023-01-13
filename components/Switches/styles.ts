@@ -3,6 +3,7 @@ import styled, { DefaultTheme } from "styled-components";
 interface SwitchesStyleProps {
   active: boolean;
   theme: DefaultTheme;
+  color: string;
 }
 
 export const Container = styled.div`
@@ -33,7 +34,13 @@ export const PomodoroSwitch = styled.button`
       ? props.theme.colors.terciary.text
       : props.theme.colors.secondary.text};
   background: ${(props: SwitchesStyleProps) =>
-    props.active ? props.theme.themes.color1 : "none"};
+    props.active && props.color === "color1"
+      ? props.theme.themes.color1
+      : props.active && props.color === "color2"
+      ? props.theme.themes.color2
+      : props.active && props.color === "color3"
+      ? props.theme.themes.color3
+      : "none"};
   font-weight: 600;
   transition: background 0.2s ease-in-out 0s, color 0.2s ease-in-out 0s;
 `;

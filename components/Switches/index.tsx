@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { selectColors } from "../../redux/reducers/colors";
+import { switches } from "../../shared/data";
 import { Container, PomodoroSwitch, Wrapper } from "./styles";
 
 interface SwitchesProps {
@@ -6,9 +9,13 @@ interface SwitchesProps {
 }
 
 export default function Switches({ onClick }: SwitchesProps) {
-  const switches = ["pomodoro", "short break", "long break"];
-
   const [selectedButton, setSelectedButton] = useState(switches[0]);
+  const { color } = useSelector(selectColors);
+
+  // useEffect(() => {
+
+  // }, [color])
+
   const handleClick = (name: string) => {
     setSelectedButton(name);
     onClick(name);
@@ -23,6 +30,7 @@ export default function Switches({ onClick }: SwitchesProps) {
               key={switchItem}
               onClick={() => handleClick(switchItem)}
               active={isActive}
+              color={color}
             >
               {switchItem}
             </PomodoroSwitch>

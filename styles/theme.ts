@@ -23,7 +23,7 @@ const Theme = {
   },
   themes: {
     color1: "#f87070",
-    color2: "#70f3f8",
+    color2: "#58c1c4",
     color3: "#d881f8",
   },
   fonts: {

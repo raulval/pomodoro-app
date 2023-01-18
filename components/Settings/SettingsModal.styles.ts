@@ -29,7 +29,12 @@ export const ModalContent = styled.div`
   border-radius: 25px;
   width: 35%;
   max-height: 80%;
-  overflow: auto;
+  overflow: hidden;
+
+  @media screen and (max-width: 1024px) {
+    width: 90%;
+    overflow-y: auto;
+  }
 `;
 
 export const ModalHeader = styled.header`
@@ -75,12 +80,20 @@ export const ModalText = styled.p`
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 6px;
+
+  @media screen and (max-width: 768px) {
+    text-align: center;
+  }
 `;
 
 export const ModalTimeInputsWrapper = styled.div`
   display: flex;
   flex-direction: row;
   gap: 1.25rem;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 export const ModalTimeInputs = styled.div`
@@ -125,6 +138,11 @@ export const ModalPresets = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    gap: 1.25rem;
+  }
 `;
 
 export const ModalPresetsButtons = styled.div`
@@ -154,6 +172,11 @@ export const ModalColors = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    gap: 1.25rem;
+  }
 `;
 
 export const ModalColorsButtons = styled.div`

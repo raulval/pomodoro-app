@@ -7,29 +7,23 @@ interface TimerStylesProps {
   color: string;
 }
 
-export const Container = styled.div`
-  display: flex;
-  width: 50%;
-  height: 50%;
-  /* -webkit-box-align: center; */
-  /* -webkit-box-pack: center; */
-  align-items: center;
-  justify-content: center;
-  /* border: 2px solid #fff; */
-  /* flex: 1; */
-`;
-
 export const Wrapper = styled.div`
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 85%;
+  height: 100%;
+  max-height: 25.62rem;
   max-width: 25.62rem;
   background: linear-gradient(315deg, #2e325a 0%, #0e112a 100%);
   box-shadow: rgb(39 44 90) -50px -50px 100px, rgb(18 21 48) 50px 50px 100px;
   border-radius: 50%;
+
+  @media screen and (max-width: 375px) {
+    max-width: 23rem;
+    max-height: 23rem;
+  }
 `;
 
 export const Wrapper2 = styled.div`
@@ -43,18 +37,33 @@ export const Wrapper2 = styled.div`
   left: 5%;
   border-radius: 50%;
   background: ${(props) => props.theme.colors.secondary.main};
+
+  @media screen and (max-width: 375px) {
+    max-width: 23rem;
+    max-height: 23rem;
+  }
 `;
 
 export const CountdownTimer = styled.div`
   position: relative;
   width: 21.375rem;
   height: 21.375rem;
+
+  /* @media screen and (max-width: 375px) {
+    max-width: 18rem;
+    max-height: 18rem;
+  } */
 `;
 
 export const Svg = styled.svg`
   width: 21.375rem;
   height: 21.375rem;
   transform: scaleX(-1);
+
+  /* @media screen and (max-width: 375px) {
+    max-width: 18rem;
+    max-height: 18rem;
+  } */
 `;
 
 export const Path1 = styled.path`

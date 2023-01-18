@@ -4,7 +4,6 @@ import { selectColors } from "../../redux/reducers/colors";
 import { userSettings } from "../../shared/interfaces";
 import { getLocalStorage } from "../../shared/utils/getLocalStorage";
 import {
-  Container,
   CountdownTimer,
   Path1,
   Path2,
@@ -68,81 +67,79 @@ export default function Timer({ selectedTime }: TimerProps) {
   const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
 
   return (
-    <Container>
-      <Wrapper>
-        <Wrapper2>
-          <CountdownTimer>
-            <Svg xmlns="http://www.w3.org/2000/svg">
-              <Path1
-                d="m 171,6.75
+    <Wrapper>
+      <Wrapper2>
+        <CountdownTimer>
+          <Svg xmlns="http://www.w3.org/2000/svg">
+            <Path1
+              d="m 171,6.75
           a 164.25,164.25 0 1,0 0,328.5
           a 164.25,164.25 0 1,0 0,-328.5"
-              ></Path1>
-              <Path2
-                d="m 171,6.75
+            ></Path1>
+            <Path2
+              d="m 171,6.75
           a 164.25,164.25 0 1,0 0,328.5
           a 164.25,164.25 0 1,0 0,-328.5"
-                timer={timer}
-                selectedTime={selectedTime}
-                color={userSettings ? userSettings.color : color}
-              ></Path2>
-            </Svg>
-            <TimerRing color={userSettings ? userSettings.color : color}>
-              <TimerDiv>
-                <TimerText>
-                  {minutes}:{formattedSeconds}
-                </TimerText>
-                <TimerButtons>
-                  {isRunning ? (
-                    <>
+              timer={timer}
+              selectedTime={selectedTime}
+              color={userSettings ? userSettings.color : color}
+            ></Path2>
+          </Svg>
+          <TimerRing color={userSettings ? userSettings.color : color}>
+            <TimerDiv>
+              <TimerText>
+                {minutes}:{formattedSeconds}
+              </TimerText>
+              <TimerButtons>
+                {isRunning ? (
+                  <>
+                    <TimerStartButton
+                      onClick={handlePause}
+                      color={userSettings ? userSettings.color : color}
+                    >
+                      Pause
+                    </TimerStartButton>
+                    <TimerResetButton
+                      onClick={handleReset}
+                      color={userSettings ? userSettings.color : color}
+                    >
+                      Reset
+                    </TimerResetButton>
+                  </>
+                ) : (
+                  <>
+                    {timer === 0 ? (
                       <TimerStartButton
-                        onClick={handlePause}
-                        color={userSettings ? userSettings.color : color}
-                      >
-                        Pause
-                      </TimerStartButton>
-                      <TimerResetButton
                         onClick={handleReset}
                         color={userSettings ? userSettings.color : color}
                       >
                         Reset
-                      </TimerResetButton>
-                    </>
-                  ) : (
-                    <>
-                      {timer === 0 ? (
+                      </TimerStartButton>
+                    ) : (
+                      <>
                         <TimerStartButton
-                          onClick={handleReset}
+                          onClick={handleStart}
                           color={userSettings ? userSettings.color : color}
                         >
-                          Reset
+                          Start
                         </TimerStartButton>
-                      ) : (
-                        <>
-                          <TimerStartButton
-                            onClick={handleStart}
+                        {timer < selectedTime && (
+                          <TimerResetButton
+                            onClick={handleReset}
                             color={userSettings ? userSettings.color : color}
                           >
-                            Start
-                          </TimerStartButton>
-                          {timer < selectedTime && (
-                            <TimerResetButton
-                              onClick={handleReset}
-                              color={userSettings ? userSettings.color : color}
-                            >
-                              Reset
-                            </TimerResetButton>
-                          )}
-                        </>
-                      )}
-                    </>
-                  )}
-                </TimerButtons>
-              </TimerDiv>
-            </TimerRing>
-          </CountdownTimer>
-        </Wrapper2>
-      </Wrapper>
-    </Container>
+                            Reset
+                          </TimerResetButton>
+                        )}
+                      </>
+                    )}
+                  </>
+                )}
+              </TimerButtons>
+            </TimerDiv>
+          </TimerRing>
+        </CountdownTimer>
+      </Wrapper2>
+    </Wrapper>
   );
 }

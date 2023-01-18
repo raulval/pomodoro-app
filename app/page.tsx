@@ -2,9 +2,11 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { ThemeProvider } from "styled-components";
+import Footer from "../components/Footer";
 import Settings from "../components/Settings";
 import Switches from "../components/Switches";
 import Timer from "../components/Timer";
+
 import { selectTimerValues } from "../redux/reducers/timerValues";
 import { userSettings } from "../shared/interfaces";
 import { getLocalStorage } from "../shared/utils/getLocalStorage";
@@ -46,6 +48,7 @@ export default function Home() {
           <Switches onClick={(props) => setSelectedSwitch(props)} />
           <Timer selectedTime={selectedTime} />
           <Settings />
+          <Footer />
         </Container>
       </ThemeProvider>
     </>

@@ -37,20 +37,16 @@ export default function Home() {
   }, [selectedSwitch, pomodoro, shortBreak, longBreak]);
 
   return (
-    <>
-      <title>Pomodoro App</title>
+    <ThemeProvider theme={Theme}>
+      <GlobalStyle />
 
-      <ThemeProvider theme={Theme}>
-        <GlobalStyle />
-
-        <Container>
-          <Title>pomodoro</Title>
-          <Switches onClick={(props) => setSelectedSwitch(props)} />
-          <Timer selectedTime={selectedTime} />
-          <Settings />
-          <Footer />
-        </Container>
-      </ThemeProvider>
-    </>
+      <Container>
+        <Title>pomodoro</Title>
+        <Switches onClick={(props) => setSelectedSwitch(props)} />
+        <Timer selectedTime={selectedTime} />
+        <Settings />
+        <Footer />
+      </Container>
+    </ThemeProvider>
   );
 }

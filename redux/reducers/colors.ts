@@ -1,11 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getLocalStorage } from "../../shared/utils/getLocalStorage";
 
 export interface ColorsState {
   color: string;
 }
 
 const initialState: ColorsState = {
-  color: "color1",
+  color: getLocalStorage("settings")
+    ? getLocalStorage("settings").color
+    : "color1",
 };
 
 export const slice = createSlice({

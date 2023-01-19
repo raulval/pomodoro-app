@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { selectColors } from "../../redux/reducers/colors";
@@ -6,8 +7,12 @@ import { userSettings } from "../../shared/interfaces";
 import { getLocalStorage } from "../../shared/utils/getLocalStorage";
 
 const Footer = () => {
-  const userSettings: userSettings = getLocalStorage("settings");
   const { color } = useSelector(selectColors);
+  const [userSettings, setUserSettings] = useState<userSettings>();
+
+  useEffect(() => {
+    setUserSettings(getLocalStorage("settings"));
+  }, [color]);
 
   return (
     <footer>

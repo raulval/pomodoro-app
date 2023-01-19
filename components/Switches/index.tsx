@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectColors } from "../../redux/reducers/colors";
 import { switches } from "../../shared/data";
@@ -13,7 +13,11 @@ interface SwitchesProps {
 export default function Switches({ onClick }: SwitchesProps) {
   const [selectedButton, setSelectedButton] = useState(switches[0]);
   const { color } = useSelector(selectColors);
-  const userSettings: userSettings = getLocalStorage("settings");
+  const [userSettings, setUserSettings] = useState<userSettings>();
+
+  useEffect(() => {
+    setUserSettings(getLocalStorage("settings"));
+  }, [color]);
 
   const handleClick = (name: string) => {
     setSelectedButton(name);

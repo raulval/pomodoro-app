@@ -1,17 +1,7 @@
-import { useSelector } from "react-redux";
-import { selectColors } from "../../redux/reducers/colors";
-import { selectTimerValues } from "../../redux/reducers/timerValues";
+"use client";
 
 export const getLocalStorage = (key: string) => {
-  const value =
-    typeof window !== "undefined"
-      ? localStorage.getItem(key)
-      : JSON.stringify({
-          color: useSelector(selectColors).color,
-          pomodoroTimer: useSelector(selectTimerValues).pomodoro,
-          shortBreakTimer: useSelector(selectTimerValues).shortBreak,
-          longBreakTimer: useSelector(selectTimerValues).longBreak,
-        });
+  const value = localStorage.getItem(key);
 
   if (value) {
     return JSON.parse(value);

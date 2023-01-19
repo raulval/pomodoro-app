@@ -42,9 +42,9 @@ interface SettingsModalProps {
 const SettingsModal = ({ closeModal }: SettingsModalProps) => {
   const dispatch = useDispatch();
   const { color } = useSelector(selectColors);
-  const userSettings: userSettings = getLocalStorage("settings");
   const modalRef = useRef<HTMLDivElement>(null);
   const [selectedPreset, setSelectedPreset] = useState<string>();
+  const [userSettings, setUserSettings] = useState<userSettings>();
   const [selectedColor, setSelectedColor] = useState(
     userSettings ? userSettings.color : colors[0]
   );
@@ -57,6 +57,10 @@ const SettingsModal = ({ closeModal }: SettingsModalProps) => {
   const [longBreakTime, setLongBreakTime] = useState<number>(
     userSettings ? userSettings.longBreakTimer : 15
   );
+
+  useEffect(() => {
+    setUserSettings(getLocalStorage("settings"));
+  }, [color]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

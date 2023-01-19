@@ -24,10 +24,14 @@ interface TimerProps {
 
 export default function Timer({ selectedTime }: TimerProps) {
   const { color } = useSelector(selectColors);
-  const userSettings: userSettings = getLocalStorage("settings");
   const [timer, setTimer] = useState(selectedTime); // 25 minutes
   const [isRunning, setIsRunning] = useState(false);
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
+  const [userSettings, setUserSettings] = useState<userSettings>();
+
+  useEffect(() => {
+    setUserSettings(getLocalStorage("settings"));
+  }, [color]);
 
   useEffect(() => {
     setTimer(selectedTime);

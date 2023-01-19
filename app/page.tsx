@@ -18,9 +18,9 @@ export default function Home() {
   const { pomodoro, shortBreak, longBreak } = useSelector(selectTimerValues);
   const [selectedSwitch, setSelectedSwitch] = useState("pomodoro");
   const [selectedTime, setSelectedTime] = useState<number>(pomodoro);
-  const userSettings: userSettings = getLocalStorage("settings");
 
   useEffect(() => {
+    const userSettings: userSettings = getLocalStorage("settings");
     if (selectedSwitch === "pomodoro") {
       setSelectedTime(
         userSettings ? userSettings.pomodoroTimer * 60 : pomodoro * 60

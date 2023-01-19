@@ -4,7 +4,7 @@ export default function Head() {
       <title>Pomodoro App</title>
       <meta
         name="viewport"
-        content="width=device-width, initial-scale=0.85"
+        content="width=device-width, initial-scale=0.8"
       ></meta>
     </>
   );

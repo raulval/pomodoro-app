@@ -15,12 +15,15 @@ export const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   width: min-content;
-  /* width: 23.5rem; */
   height: 4.5rem;
 
   background-color: ${(props) => props.theme.colors.secondary.main};
   border-radius: 32px;
   gap: 0.2rem;
+
+  @media screen and (max-width: 360px) {
+    width: 19rem;
+  }
 `;
 
 export const PomodoroSwitch = styled.button`

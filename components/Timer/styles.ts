@@ -48,22 +48,12 @@ export const CountdownTimer = styled.div`
   position: relative;
   width: 21.375rem;
   height: 21.375rem;
-
-  /* @media screen and (max-width: 375px) {
-    max-width: 18rem;
-    max-height: 18rem;
-  } */
 `;
 
 export const Svg = styled.svg`
   width: 21.375rem;
   height: 21.375rem;
   transform: scaleX(-1);
-
-  /* @media screen and (max-width: 375px) {
-    max-width: 18rem;
-    max-height: 18rem;
-  } */
 `;
 
 export const Path1 = styled.path`
